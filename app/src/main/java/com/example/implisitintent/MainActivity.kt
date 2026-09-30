@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() {
 
 
         val btnOpenURL = findViewById<Button>(R.id.btnOpenURL)
-        val _etURL = findViewById<EditText>(R.id.etURL) // Sesuaikan id ini dengan yang ada di activity_main.xml
+        val _etURL = findViewById<EditText>(R.id.etURL)
 
         btnOpenURL.setOnClickListener {
             var _webIntent = Intent(
