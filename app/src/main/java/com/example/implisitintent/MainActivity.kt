@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // --- TOPIK 1: KIRIM PESAN ---
+        // TOPIK 1
         val btnKirimPesan = findViewById<Button>(R.id.btnKirimPesan)
         btnKirimPesan.setOnClickListener {
             val _sendIntent = Intent().apply {
@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // --- TOPIK 2: SET ALARM ---
+        // set alarm (topik2)
         val btnSetAlarm = findViewById<Button>(R.id.btnSetAlarm)
         btnSetAlarm.setOnClickListener {
             val _alarmIntent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(_alarmIntent)
         }
 
-        // --- TOPIK 2: SET TIMER ---
+        // set time (topik2)
         val btnSetTimer = findViewById<Button>(R.id.btnSetTimer)
         btnSetTimer.setOnClickListener {
             val _timerIntent = Intent(AlarmClock.ACTION_SET_TIMER).apply {
