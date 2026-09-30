@@ -18,7 +18,21 @@ import android.provider.CalendarContract
 import java.util.Calendar
 import java.util.TimeZone
 
+import android.widget.ImageView
+import androidx.activity.result.contract.ActivityResultContracts
+
 class MainActivity : AppCompatActivity() {
+
+    lateinit var _ivHasil: ImageView
+
+    val cameraLauncher = registerForActivityResult(
+        ActivityResultContracts.TakePicturePreview()
+    ) { bitmap ->
+        if (bitmap != null) {
+            _ivHasil.setImageBitmap(bitmap)
+        }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -121,5 +135,13 @@ class MainActivity : AppCompatActivity() {
             }, year, month, day)
             datePickerDialog.show()
         }
+
+        _ivHasil = findViewById(R.id.ivHasil)
+        val btnGetPhoto = findViewById<Button>(R.id.btnGetPhoto)
+
+        btnGetPhoto.setOnClickListener {
+            cameraLauncher.launch(null)
+        }
+
     }
 }

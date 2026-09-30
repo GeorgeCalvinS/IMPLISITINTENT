@@ -41,4 +41,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Set Event Calendar" />
+
+    <Button
+        android:id="@+id/btnGetPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Buka Kamera" />
+
+    <ImageView
+        android:id="@+id/ivHasil"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:background="#DDDDDD" />
 </LinearLayout>
