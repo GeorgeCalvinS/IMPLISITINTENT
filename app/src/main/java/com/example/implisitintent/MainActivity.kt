@@ -23,9 +23,9 @@ import androidx.activity.result.contract.ActivityResultContracts
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var _ivHasil: ImageView
+    private lateinit var _ivHasil: ImageView
 
-    val cameraLauncher = registerForActivityResult(
+    private val cameraLauncher = registerForActivityResult(
         ActivityResultContracts.TakePicturePreview()
     ) { bitmap ->
         if (bitmap != null) {
@@ -78,7 +78,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(_timerIntent)
         }
 
-
         val btnOpenURL = findViewById<Button>(R.id.btnOpenURL)
         val _etURL = findViewById<EditText>(R.id.etURL)
 
@@ -98,6 +97,7 @@ class MainActivity : AppCompatActivity() {
                 ).show()
             }
         }
+
         val btnSetEvent = findViewById<Button>(R.id.btnSetEvent)
         btnSetEvent.setOnClickListener {
             val calendar = Calendar.getInstance(TimeZone.getTimeZone("Asia/Jakarta"))
@@ -141,6 +141,42 @@ class MainActivity : AppCompatActivity() {
 
         btnGetPhoto.setOnClickListener {
             cameraLauncher.launch(null)
+        }
+
+        val btnBukaMaps = findViewById<Button>(R.id.btnBukaMaps)
+        btnBukaMaps.setOnClickListener {
+            val _latitude = "-7.24611"
+            val _longitude = " 112.73750"
+            val _labelTempat = "Tugu Pahlawan"
+
+            val gmmIntentUri = Uri.parse("geo:$_latitude,$_longitude?q=$_latitude,$_longitude($_labelTempat)")
+
+            var _mapIntent = Intent(Intent.ACTION_VIEW, gmmIntentUri).apply {
+                setPackage("com.google.android.apps.maps")
+            }
+
+            if (_mapIntent.resolveActivity(packageManager) != null) {
+                startActivity(_mapIntent)
+            } else {
+                Toast.makeText(
+                    this,
+                    "Aplikasi Google Maps tidak ditemukan",
+                    Toast.LENGTH_SHORT).show()
+
+                val _webUri = Uri.parse("https://www.google.com/maps/search/?api=1&query=$_latitude,$_longitude")
+                val _webIntent = Intent(
+                    Intent.ACTION_VIEW,
+                    _webUri)
+
+                try {
+                    startActivity(_webIntent)
+                } catch (e2: Exception) {
+                    Toast.makeText(
+                        this,
+                        "Tidak ada aplikasi browser yang tersedia",
+                        Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
     }
