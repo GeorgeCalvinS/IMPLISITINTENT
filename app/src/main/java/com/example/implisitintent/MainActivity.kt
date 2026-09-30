@@ -1,9 +1,12 @@
 package com.example.implisitintent
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.AlarmClock
 import android.widget.Button
+import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -21,7 +24,6 @@ class MainActivity : AppCompatActivity() {
             insets
         }
 
-        // TOPIK 1
         val btnKirimPesan = findViewById<Button>(R.id.btnKirimPesan)
         btnKirimPesan.setOnClickListener {
             val _sendIntent = Intent().apply {
@@ -35,7 +37,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        // set alarm (topik2)
         val btnSetAlarm = findViewById<Button>(R.id.btnSetAlarm)
         btnSetAlarm.setOnClickListener {
             val _alarmIntent = Intent(AlarmClock.ACTION_SET_ALARM).apply {
@@ -47,7 +48,6 @@ class MainActivity : AppCompatActivity() {
             startActivity(_alarmIntent)
         }
 
-        // set time (topik2)
         val btnSetTimer = findViewById<Button>(R.id.btnSetTimer)
         btnSetTimer.setOnClickListener {
             val _timerIntent = Intent(AlarmClock.ACTION_SET_TIMER).apply {
@@ -56,6 +56,27 @@ class MainActivity : AppCompatActivity() {
                 putExtra(AlarmClock.EXTRA_SKIP_UI, true)
             }
             startActivity(_timerIntent)
+        }
+
+
+        val btnOpenURL = findViewById<Button>(R.id.btnOpenURL)
+        val _etURL = findViewById<EditText>(R.id.etURL) // Sesuaikan id ini dengan yang ada di activity_main.xml
+
+        btnOpenURL.setOnClickListener {
+            var _webIntent = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("http://" + _etURL.text.toString())
+            )
+
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(_webIntent)
+            } else {
+                Toast.makeText(
+                    this,
+                    "Tidak ada Aplikasi Browser ditemukan",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
     }
 }
